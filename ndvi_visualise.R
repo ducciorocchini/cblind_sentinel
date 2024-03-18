@@ -1,3 +1,5 @@
+############### NDVI perception
+
 # Local data: ~/Downloads/sent_cblind/S2A_MSIL2A_20230821T100601_N0509_R022_T32TQS_20230821T163000.SAFE/GRANULE/L2A_T32TQS_A042633_20230821T101414/IMG_DATA/R10m
 
 # Idea for a figure:
@@ -27,3 +29,35 @@ par(mfrow=c(1,3))
 plot(ndvi, col=clgr)
 plot(ndvi, col=clbr)
 plot(ndvi, col=clbg)
+
+############### NEURAL NETWORKS
+
+library(RStoolbox)
+library(patchwork)
+library(ggplot2)
+library(raster)
+
+# Working directory
+setwd("~/Documents/cblindplot/paper2")
+
+# Caricare immagini
+list <- list.files(pattern="LC09_")
+imp <- lapply(.list, raster)
+imm <- stack(imp)
+
+# Impostare palettes con 8 colori
+palraw <- rev(colorRampPalette(c("red", "orange", "yellow", "chartreuse", "cyan",
+                             "blue", "deeppink", "red"))(100))
+palraw_grey <- rev(colorRampPalette(c("darkgrey", "orange", "yellow", "darkgrey",
+                                  "cyan", "blue", "dark green", "darkgrey"))(100))
+
+# Plot
+
+ext <- c(205000, 285000, 85000, 145000)
+imm.c <- crop(imm, ext)
+plot(imm.c[[4]])
+
+par(mfrow=c(1, 2))
+plot(imm.c[[4]], col=palraw, main="Normal vision")
+plot(imm.c[[4]], col=palraw_grey, main="Protanopia")
+
