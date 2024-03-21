@@ -30,7 +30,7 @@ plot(ndvi, col=clgr)
 plot(ndvi, col=clbr)
 plot(ndvi, col=clbg)
 
-############### NEURAL NETWORKS
+############### Color vision simulation - Emma Donini
 
 library(RStoolbox)
 library(patchwork)
@@ -42,7 +42,7 @@ setwd("~/Documents/cblindplot/paper2")
 
 # Caricare immagini
 list <- list.files(pattern="LC09_")
-imp <- lapply(.list, raster)
+imp <- lapply(list, raster)
 imm <- stack(imp)
 
 # Impostare palettes con 8 colori
@@ -53,9 +53,9 @@ palraw_grey <- rev(colorRampPalette(c("darkgrey", "orange", "yellow", "darkgrey"
 
 # Plot
 
-ext <- c(205000, 285000, 85000, 145000)
-imm.c <- crop(imm, ext)
-plot(imm.c[[4]])
+ext <- c(203000, 287000, 69000, 161000)
+imm.c <- crop(imm, imm.c <- crop(imm, ext)
+plot(imm.c[[4]])  
 
 par(mfrow=c(1, 2))
 plot(imm.c[[4]], col=palraw, main="Normal vision")
